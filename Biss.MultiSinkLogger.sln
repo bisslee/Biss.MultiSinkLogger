@@ -1,0 +1,61 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.11.35431.28
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{23CB4016-2376-43ED-A5EA-51C37A221D6F}"
+	ProjectSection(SolutionItems) = preProject
+		docs\README.md = docs\README.md
+		docs\READMe_old.md = docs\READMe_old.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{FDF27813-F576-478B-972E-2B8B0029AF47}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{336519C9-24FA-4B35-9204-BA76ACA206F9}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "example", "example", "{9C45D85D-D64F-4492-9C27-10ED0DBE3EA9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Biss.MultiSinkLogger", "src\Biss.MultiSinkLogger\Biss.MultiSinkLogger.csproj", "{33049337-0C3E-4110-BEF9-D671D13A0361}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Biss.MultiSinkLogger.Api", "exemplo\Biss.MultiSinkLogger.Api\Biss.MultiSinkLogger.Api.csproj", "{7A3E8FDB-B723-4123-B723-BCB72CD9B100}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Biss.MultiSinkLogger.UnitTest", "test\Biss.MultiSinkLogger.UnitTest\Biss.MultiSinkLogger.UnitTest.csproj", "{8C3D6751-6478-4417-9741-AF53D7623EED}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "img", "img", "{F7759956-7E8F-4DD4-9822-D761E3EB6692}"
+	ProjectSection(SolutionItems) = preProject
+		img\LoginGd.png = img\LoginGd.png
+		img\Logopq.ico = img\Logopq.ico
+		img\Logopq.png = img\Logopq.png
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{33049337-0C3E-4110-BEF9-D671D13A0361}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{33049337-0C3E-4110-BEF9-D671D13A0361}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{33049337-0C3E-4110-BEF9-D671D13A0361}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{33049337-0C3E-4110-BEF9-D671D13A0361}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7A3E8FDB-B723-4123-B723-BCB72CD9B100}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7A3E8FDB-B723-4123-B723-BCB72CD9B100}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7A3E8FDB-B723-4123-B723-BCB72CD9B100}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7A3E8FDB-B723-4123-B723-BCB72CD9B100}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8C3D6751-6478-4417-9741-AF53D7623EED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8C3D6751-6478-4417-9741-AF53D7623EED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8C3D6751-6478-4417-9741-AF53D7623EED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8C3D6751-6478-4417-9741-AF53D7623EED}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{33049337-0C3E-4110-BEF9-D671D13A0361} = {FDF27813-F576-478B-972E-2B8B0029AF47}
+		{7A3E8FDB-B723-4123-B723-BCB72CD9B100} = {9C45D85D-D64F-4492-9C27-10ED0DBE3EA9}
+		{8C3D6751-6478-4417-9741-AF53D7623EED} = {336519C9-24FA-4B35-9204-BA76ACA206F9}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {DF131FD0-5341-4962-904A-B400AC3528FF}
+	EndGlobalSection
+EndGlobal
