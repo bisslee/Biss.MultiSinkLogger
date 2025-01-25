@@ -1,4 +1,5 @@
 ## Instruções de Uso do Biss.MultiSinkLogger no Cliente
+![Logopq](https://github.com/bisslee/Biss.MultiSinkLogger/blob/main/img/Logopq.png)
 
 O **Biss.MultiSinkLogger** é uma biblioteca desenvolvida para facilitar a gestão de logs em aplicações .NET. Este documento explica como configurar e usar o logger no cliente.
 
