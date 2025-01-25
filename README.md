@@ -1,5 +1,6 @@
 ﻿## Biss.MultiSinkLogger - Guia para Contribuições
 ![Logopq](https://github.com/bisslee/Biss.MultiSinkLogger/blob/main/img/Logopq.png)
+
 O **Biss.MultiSinkLogger** é um componente de logging desenvolvido para unificar e padronizar os logs em projetos .NET. Este documento orienta sobre como contribuir para o projeto e criar novas versões.
 
 ---
