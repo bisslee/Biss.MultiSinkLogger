@@ -3,10 +3,10 @@
 	<PropertyGroup>
 		<TargetFramework>net8.0</TargetFramework>
 		<PackageId>Biss.MultiSinkLogger</PackageId>
-		<Version>1.0.0</Version>
+		<Version>1.0.1</Version>
 		<Authors>Biss Lee</Authors>		
 		<Company>Biss Solutions Software</Company>
-		<Description>Uma biblioteca para gerenciar logs com múltiplos sinks em MongoDB, SQL Server, e Elmah.</Description>
+		<Description>Uma biblioteca para gerenciar logs com múltiplos sinks em MongoDB, SQL Server, e outros.</Description>
 		<PackageTags>logging;serilog;dotnet;Biss</PackageTags>
 		<RepositoryUrl>https://github.com/BissLee/Biss.MultiSinkLogger</RepositoryUrl>
 		<LicenseUrl>https://opensource.org/licenses/MIT</LicenseUrl>
@@ -14,17 +14,21 @@
 		<PackageProjectUrl>https://github.com/BissLee/Biss.MultiSinkLogger</PackageProjectUrl>
 		<PackageIcon>icon.png</PackageIcon>
 		<ImplicitUsings>enable</ImplicitUsings>
-		<Nullable>enable</Nullable>
-		<PackageReadmeFile>README.md</PackageReadmeFile>
+		<Nullable>enable</Nullable>		
+		<PackageReadmeFile>README.md</PackageReadmeFile>		
+		<ApplicationIcon>icon.ico</ApplicationIcon>
 	</PropertyGroup>
 
 	<ItemGroup>
-		<Content Include="icon.png">
-			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
-		</Content>
+		<Content Include="icon.ico" />
 		<Content Include="README.md">
 		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</Content>
+	</ItemGroup>
+
+	<ItemGroup>
+		<None Include="README.md" Pack="true" PackagePath="" />
+		<None Include="icon.png" Pack="true" PackagePath="" />
 	</ItemGroup>
 
 	<ItemGroup>

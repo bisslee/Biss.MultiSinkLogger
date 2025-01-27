@@ -9,6 +9,10 @@ namespace Biss.MultiSinkLogger
             Log.Information(message);
         }
 
+        public static void Info(string message, string attrib)
+        {
+            Log.Information(message, attrib);
+        }
         public static void Debug(string message)
         {
             Log.Debug(message);
@@ -29,6 +33,11 @@ namespace Biss.MultiSinkLogger
         public static void Warning(string message)
         {
             Log.Warning(message);
+        }
+
+        public static void Warning(string message, string? attrib)
+        {
+            Log.Warning(message, attrib);
         }
 
         public static void Fatal(string message, Exception? ex = null)
