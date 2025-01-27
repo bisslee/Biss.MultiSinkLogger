@@ -1,9 +1,9 @@
-## Instruções de Uso do Biss.MultiSinkLogger no Cliente
+ï»¿## InstruÃ§Ãµes de Uso do Biss.MultiSinkLogger no Cliente
 
-O **Biss.MultiSinkLogger** é uma biblioteca desenvolvida para facilitar a gestão de logs em aplicações .NET. Este documento explica como configurar e usar o logger no cliente.
+O **Biss.MultiSinkLogger** Ã© uma biblioteca desenvolvida para facilitar a gestÃ£o de logs em aplicaÃ§Ãµes .NET. Este documento explica como configurar e usar o logger no cliente.
 
 
-### Sinks Disponíveis
+### Sinks DisponÃ­veis
 - **Console**: Exibe os logs no console.
 - **File**: Salva os logs em arquivos.
 - **CosmosDB**: Salva os logs em um banco de dados CosmosDB.
@@ -18,19 +18,31 @@ O **Biss.MultiSinkLogger** é uma biblioteca desenvolvida para facilitar a gestão
 
 ---
 
-### 1. **Instalação da Biblioteca**
+### 1. **InstalaÃ§Ã£o da Biblioteca**
 Adicione o Biss.MultiSinkLogger ao seu projeto via NuGet:
 
 ```bash
 Install-Package Biss.MultiSinkLogger
 ```
 
+Adicione o pacote Serilog e o pacote Serilog.AspNetCore:
+
+
+```bash
+Install-Package Serilog
+```
+
+```bash
+Install-Package Serilog.AspNetCore
+```
+
+
 ---
 
-### 2. **Configuração Inicial**
+### 2. **ConfiguraÃ§Ã£o Inicial**
 
-#### Adicione a configuração ao `appsettings.json`
-Inclua as configurações do logger no arquivo `appsettings.json`:
+#### Adicione a configuraÃ§Ã£o ao `appsettings.json`
+Inclua as configuraÃ§Ãµes do logger no arquivo `appsettings.json`:
 
 ```json
 {
@@ -156,20 +168,29 @@ Inclua as configurações do logger no arquivo `appsettings.json`:
 }
 ```
 
-#### Inicialização no `Program.cs`
+#### InicializaÃ§Ã£o no `Program.cs`
 No arquivo `Program.cs`, configure o logger:
 
 ```csharp
 using Biss.MultiSinkLogger;
+using Biss.MultiSinkLogger.ExceptionHandlers;
+using Biss.MultiSinkLogger.Http;
+using Biss.MultiSinkLogger.Extensions;
 using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Inicializa o logger com configurações do appsettings.json
+// Inicializa o logger com configuraÃ§Ãµes do appsettings.json
 LoggingManager.InitializeLogger(builder.Configuration);
 
 // Configura o Serilog
 builder.Host.UseSerilog();
+
+
+// Adiciona o HttpClient com o HttpLoggingHandler
+builder.Services.AddTransient<HttpLoggingHandler>();
+builder.Services.AddTransient<IExceptionHandler, DefaultExceptionHandler>();
+
 
 var app = builder.Build();
 
@@ -182,10 +203,10 @@ app.Run();
 
 ---
 
-### 3. **Usando o Logger no Código**
+### 3. **Usando o Logger no CÃ³digo**
 
 #### Exemplo de Registro de Logs
-Em controladores ou serviços, use o logger para registrar informações:
+Em controladores ou serviÃ§os, use o logger para registrar informaÃ§Ãµes:
 
 ```csharp
 using Biss.MultiSinkLogger;
@@ -197,7 +218,7 @@ public class ExampleService
         Logger.Info("Iniciando o processamento.");
         try
         {
-            // Lógica de negócio
+            // LÃ³gica de negÃ³cio
         }
         catch (Exception ex)
         {
@@ -207,7 +228,7 @@ public class ExampleService
 }
 ```
 
-#### Log de Requisições HTTP
+#### Log de RequisiÃ§Ãµes HTTP
 Para capturar logs de chamadas HTTP:
 
 ```csharp
@@ -221,14 +242,14 @@ builder.Services.AddHttpClient("ApiExterna")
 
 ---
 
-### 4. **Verificação dos Logs**
-Os logs serão registrados nos sinks configurados (console, arquivos, etc.). Certifique-se de validar se os arquivos estão sendo gerados no local configurado e que as permissões de escrita estão corretas.
+### 4. **VerificaÃ§Ã£o dos Logs**
+Os logs serÃ£o registrados nos sinks configurados (console, arquivos, etc.). Certifique-se de validar se os arquivos estÃ£o sendo gerados no local configurado e que as permissÃµes de escrita estÃ£o corretas.
 
 ---
 
-### 5. **Considerações Finais**
-- Certifique-se de que os dados sensíveis não sejam registrados nos logs.
-- Use variáveis de ambiente para strings de conexão em produção.
+### 5. **ConsideraÃ§Ãµes Finais**
+- Certifique-se de que os dados sensÃ­veis nÃ£o sejam registrados nos logs.
+- Use variÃ¡veis de ambiente para strings de conexÃ£o em produÃ§Ã£o.
 
-Caso tenha problemas, consulte a documentação completa ou entre em contato com o suporte.
+Caso tenha problemas, consulte a documentaÃ§Ã£o completa ou entre em contato com o suporte.
 
