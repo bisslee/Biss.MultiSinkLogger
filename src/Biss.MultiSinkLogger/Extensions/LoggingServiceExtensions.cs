@@ -97,6 +97,14 @@ namespace Biss.MultiSinkLogger.Extensions
                 configuration.GetSection("LoggingMiddleware").Bind(options);
             });
 
+            // Registrar validador para LoggingMiddlewareSettings
+            services.AddSingleton<IValidateOptions<LoggingMiddlewareSettings>, LoggingMiddlewareSettingsValidator>();
+
+            // Validar na inicialização
+            services.AddOptions<LoggingMiddlewareSettings>()
+                .Bind(configuration.GetSection("LoggingMiddleware"))
+                .ValidateOnStart();
+
             return services;
         }
 

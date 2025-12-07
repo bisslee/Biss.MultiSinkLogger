@@ -141,7 +141,8 @@ namespace Biss.MultiSinkLogger.Middleware
         /// <returns>O conteúdo do corpo como string, truncado se necessário.</returns>
         private async Task<string> ReadAndTruncateAsync(Stream bodyStream)
         {
-            var maxReadSize = _settings.MaxBodyLength;
+            // Garantir que MaxBodyLength é válido (validação de segurança adicional)
+            var maxReadSize = Math.Max(1, _settings.MaxBodyLength); // Garantir pelo menos 1
             var buffer = _charPool.Rent(maxReadSize);
 
             try

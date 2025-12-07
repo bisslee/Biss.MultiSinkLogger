@@ -33,20 +33,20 @@ if ($LASTEXITCODE -ne 0) {
     exit 1
 }
 
-# Executar testes (apenas testes unitários, ignorando testes de integração)
-Write-Host "3. Executando testes..." -ForegroundColor Yellow
-dotnet test test\Biss.MultiSinkLogger.UnitTest\Biss.MultiSinkLogger.UnitTest.csproj --configuration Release --no-build --verbosity minimal
-if ($LASTEXITCODE -ne 0) {
-    Write-Host "AVISO: Alguns testes falharam. Continuando mesmo assim..." -ForegroundColor Yellow
-    Write-Host "Nota: Testes de integração que dependem de SQL Server são esperados para falhar." -ForegroundColor Gray
-}
-
-# Build Release
-Write-Host "4. Compilando em modo Release..." -ForegroundColor Yellow
+# Build Release (ANTES dos testes)
+Write-Host "3. Compilando em modo Release..." -ForegroundColor Yellow
 dotnet build $projectPath --configuration Release --no-restore
 if ($LASTEXITCODE -ne 0) {
     Write-Host "ERRO ao compilar projeto" -ForegroundColor Red
     exit 1
+}
+
+# Executar testes (após o build)
+Write-Host "4. Executando testes..." -ForegroundColor Yellow
+dotnet test test\Biss.MultiSinkLogger.UnitTest\Biss.MultiSinkLogger.UnitTest.csproj --configuration Release --no-build --verbosity minimal
+if ($LASTEXITCODE -ne 0) {
+    Write-Host "AVISO: Alguns testes falharam. Continuando mesmo assim..." -ForegroundColor Yellow
+    Write-Host "Nota: Testes de integração que dependem de SQL Server são esperados para falhar." -ForegroundColor Gray
 }
 
 # Criar pacote NuGet

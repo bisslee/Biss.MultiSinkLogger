@@ -5,6 +5,21 @@ Todas as mudanças notáveis neste projeto serão documentadas neste arquivo.
 O formato é baseado em [Keep a Changelog](https://keepachangelog.com/pt-BR/1.0.0/),
 e este projeto adere ao [Versionamento Semântico](https://semver.org/lang/pt-BR/).
 
+## [1.1.2] - 2024-12-07
+
+### 🐛 Corrigido
+
+#### Bugs Críticos Corrigidos
+- **build-release.ps1**: Corrigida ordem incorreta - testes eram executados com `--no-build` antes do build ser concluído, causando falhas sempre
+- **LoggingMiddlewareSettings**: Adicionado validador `LoggingMiddlewareSettingsValidator` para garantir que `MaxBodyLength` seja positivo e razoável, evitando `ArgumentOutOfRangeException` no `ArrayPool.Rent()`
+- **LoggingMiddleware**: Adicionada validação de segurança adicional no método `ReadAndTruncateAsync` para garantir `MaxBodyLength >= 1`
+
+### 🔧 Melhorias Técnicas
+
+- Script de build agora executa na ordem correta: Restore → Build → Test → Pack
+- Validação de configuração na inicialização para `LoggingMiddlewareSettings` usando `IValidateOptions`
+- Limite máximo razoável de 10MB para `MaxBodyLength` para evitar problemas de memória
+
 ## [1.1.1] - 2024-12-07
 
 ### 🐛 Corrigido
