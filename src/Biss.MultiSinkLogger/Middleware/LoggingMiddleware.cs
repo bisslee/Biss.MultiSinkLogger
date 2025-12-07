@@ -36,6 +36,7 @@ namespace Biss.MultiSinkLogger.Middleware
         public LoggingMiddleware(RequestDelegate next)
         {
             _next = next;
+            _settings = new LoggingMiddlewareSettings(); // Inicializar com valores padrão
         }
 
         /// <summary>

@@ -3,7 +3,7 @@
 	<PropertyGroup>
 		<TargetFramework>net8.0</TargetFramework>
 		<PackageId>Biss.MultiSinkLogger</PackageId>
-		<Version>1.1.0</Version>
+		<Version>1.1.1</Version>
 		<Authors>Biss Lee</Authors>		
 		<Company>Biss Solutions Software</Company>
 		<Description>Uma biblioteca robusta para gerenciar logs com múltiplos sinks em .NET. Inclui thread safety, validação de configuração, health checks, filtros de dados sensíveis e suporte a 13+ tipos de sinks diferentes (Console, File, SQL Server, MongoDB, PostgreSQL, MySQL, SQLite, CosmosDB, RabbitMQ, Sentry, Slack, NewRelic e mais).</Description>

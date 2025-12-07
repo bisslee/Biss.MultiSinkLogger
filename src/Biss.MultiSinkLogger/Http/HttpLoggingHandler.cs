@@ -14,7 +14,9 @@ namespace Biss.MultiSinkLogger.Http
             string requestContent;
             try
             {
-                var rawContent = await request.Content?.ReadAsStringSafeAsync() ?? string.Empty;
+                var rawContent = request.Content != null 
+                    ? await request.Content.ReadAsStringSafeAsync() 
+                    : string.Empty;
                 requestContent = SensitiveDataFilter.FilterSensitiveData(rawContent);
             }
             catch (Exception ex)
@@ -33,7 +35,9 @@ namespace Biss.MultiSinkLogger.Http
             string responseContent;
             try
             {
-                var rawResponseContent = await response.Content?.ReadAsStringSafeAsync() ?? string.Empty;
+                var rawResponseContent = response.Content != null 
+                    ? await response.Content.ReadAsStringSafeAsync() 
+                    : string.Empty;
                 responseContent = SensitiveDataFilter.FilterSensitiveData(rawResponseContent);
             }
             catch (Exception ex)

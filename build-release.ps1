@@ -1,8 +1,11 @@
 # Script de Build e Pack para Release - Biss.MultiSinkLogger v1.1.0
 # Execute este script para criar o pacote NuGet pronto para publicação
 
+# Obter versão do projeto
+$version = (Get-Content "src\Biss.MultiSinkLogger\Biss.MultiSinkLogger.csproj" | Select-String -Pattern '<Version>(\d+\.\d+\.\d+)</Version>').Matches.Groups[1].Value
+
 Write-Host "========================================" -ForegroundColor Cyan
-Write-Host "Build e Pack - Biss.MultiSinkLogger v1.1.0" -ForegroundColor Cyan
+Write-Host "Build e Pack - Biss.MultiSinkLogger v$version" -ForegroundColor Cyan
 Write-Host "========================================" -ForegroundColor Cyan
 Write-Host ""
 

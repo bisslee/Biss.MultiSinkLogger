@@ -12,11 +12,13 @@ namespace Biss.MultiSinkLogger.UnitTest
     public class SinkHealthCheckTests
     {
         [Fact]
-        public void SinkHealthCheck_With_NullLogger_Should_Throw()
+        public void SinkHealthCheck_Should_Create_Without_Parameters()
         {
-            // Arrange & Act & Assert
-            Assert.Throws<ArgumentNullException>(() =>
-                new SinkHealthCheck(null!));
+            // Arrange & Act
+            var healthCheck = new SinkHealthCheck();
+
+            // Assert
+            Assert.NotNull(healthCheck);
         }
 
         [Fact]
@@ -24,7 +26,7 @@ namespace Biss.MultiSinkLogger.UnitTest
         {
             // Arrange
             var logger = new Mock<ILogger>();
-            var healthCheck = new SinkHealthCheck(logger.Object);
+            var healthCheck = new SinkHealthCheck();
             var context = new HealthCheckContext();
 
             // Inicializar logger estático
@@ -49,8 +51,7 @@ namespace Biss.MultiSinkLogger.UnitTest
         public async Task CheckHealthAsync_Should_Return_Unhealthy_When_Logger_Is_Null()
         {
             // Arrange
-            var logger = new Mock<ILogger>();
-            var healthCheck = new SinkHealthCheck(logger.Object);
+            var healthCheck = new SinkHealthCheck();
             var context = new HealthCheckContext();
 
             // Garantir que logger estático está null ou SilentLogger
@@ -84,17 +85,14 @@ namespace Biss.MultiSinkLogger.UnitTest
         public async Task CheckHealthAsync_Should_Handle_Exceptions()
         {
             // Arrange
-            var logger = new Mock<ILogger>();
-            // Configurar para lançar exceção quando Debug for chamado
-            logger.Setup(l => l.Debug(It.IsAny<string>(), It.IsAny<object[]>()))
-                .Throws(new InvalidOperationException("Test exception"));
-
-            var healthCheck = new SinkHealthCheck(logger.Object);
+            var healthCheck = new SinkHealthCheck();
             var context = new HealthCheckContext();
 
             // Configurar logger estático para não ser null
-            // Usar um logger diferente do mock para evitar problemas
             var staticLogger = new Mock<ILogger>();
+            // Configurar para lançar exceção quando Debug for chamado
+            staticLogger.Setup(l => l.Debug(It.IsAny<string>(), It.IsAny<object[]>()))
+                .Throws(new InvalidOperationException("Test exception"));
             Log.Logger = staticLogger.Object;
 
             try
@@ -103,23 +101,9 @@ namespace Biss.MultiSinkLogger.UnitTest
                 var result = await healthCheck.CheckHealthAsync(context);
 
                 // Assert
-                // Quando há exceção no _logger.Debug(), deve ser capturada e retornar Unhealthy
-                // Mas se a exceção não for lançada (mock não funcionou), pode retornar Healthy
-                // Vamos verificar se há exceção ou se retornou Unhealthy
-                if (result.Exception != null)
-                {
-                    Assert.Equal(HealthStatus.Unhealthy, result.Status);
-                    Assert.NotNull(result.Exception);
-                }
-                else
-                {
-                    // Se não houve exceção, o teste ainda é válido se retornou algum status
-                    Assert.True(
-                        result.Status == HealthStatus.Healthy || 
-                        result.Status == HealthStatus.Degraded || 
-                        result.Status == HealthStatus.Unhealthy,
-                        $"Status inesperado: {result.Status}");
-                }
+                // Quando há exceção no Log.Debug(), deve ser capturada e retornar Unhealthy
+                Assert.Equal(HealthStatus.Unhealthy, result.Status);
+                Assert.NotNull(result.Exception);
             }
             finally
             {

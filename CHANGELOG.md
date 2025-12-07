@@ -5,7 +5,22 @@ Todas as mudanças notáveis neste projeto serão documentadas neste arquivo.
 O formato é baseado em [Keep a Changelog](https://keepachangelog.com/pt-BR/1.0.0/),
 e este projeto adere ao [Versionamento Semântico](https://semver.org/lang/pt-BR/).
 
-## [1.1.0] - 2024-12-XX
+## [1.1.1] - 2024-12-07
+
+### 🐛 Corrigido
+
+#### Bugs Críticos Corrigidos
+- **LoggingMiddleware**: Corrigido `NullReferenceException` no segundo construtor que não inicializava `_settings`
+- **SinkHealthCheck**: Removida dependência de `ILogger` via DI, agora usa `Log.Logger` diretamente para evitar falhas de resolução
+- **HttpLoggingHandler**: Corrigido `NullReferenceException` ao fazer `await` em `Task<string>?` nulo - agora verifica null antes de await
+
+### 🔧 Melhorias Técnicas
+
+- `SinkHealthCheck` agora não requer registro de `ILogger` no DI container
+- Tratamento mais robusto de conteúdo HTTP nulo em `HttpLoggingHandler`
+- Inicialização segura de `LoggingMiddlewareSettings` em todos os construtores
+
+## [1.1.0] - 2024-12-07
 
 ### 🎉 Adicionado
 
