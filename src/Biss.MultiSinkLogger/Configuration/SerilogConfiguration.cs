@@ -52,9 +52,32 @@ namespace Biss.MultiSinkLogger.Configuration
             if (loggerConfig == null)
                 throw new LoggerConfigurationException("Configuração de Logger não encontrada.");
 
+            // Validação básica antes de processar
+            ValidateBasicSettings(loggerConfig);
+
             SinkSettingsConfig(configuration, loggerConfig);
 
             return loggerConfig;
+        }
+
+        private static void ValidateBasicSettings(LoggerManagerSettings loggerConfig)
+        {
+            if (string.IsNullOrWhiteSpace(loggerConfig.MinimumLevel))
+            {
+                throw new LoggerConfigurationException("MinimumLevel é obrigatório na configuração.");
+            }
+
+            if (!Enum.TryParse<Serilog.Events.LogEventLevel>(loggerConfig.MinimumLevel, true, out _))
+            {
+                var validLevels = string.Join(", ", Enum.GetNames(typeof(Serilog.Events.LogEventLevel)));
+                throw new LoggerConfigurationException(
+                    $"MinimumLevel '{loggerConfig.MinimumLevel}' não é válido. Valores válidos: {validLevels}");
+            }
+
+            if (loggerConfig.Sinks == null)
+            {
+                throw new LoggerConfigurationException("Sinks não pode ser null na configuração.");
+            }
         }
 
         private static void SinkSettingsConfig(IConfiguration configuration, LoggerManagerSettings loggerConfig)
@@ -136,7 +159,7 @@ namespace Biss.MultiSinkLogger.Configuration
             foreach (var sink in sinks)
             {
                 SinkType sinkType = sink.Type.ParseEnum<SinkType>();
-                var configurator = SinkConfiguratorFactory.GetConfigurator(sinkType);
+                var configurator = SinkConfiguratorFactory.GetConfiguratorStatic(sinkType);
                 configurator.Configure(loggerConfiguration, sink.Settings, loggerConfig);
             }
         }

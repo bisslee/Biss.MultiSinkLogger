@@ -1,8 +1,12 @@
 ﻿using Serilog;
 using Biss.MultiSinkLogger.Constants;
+using Biss.MultiSinkLogger.Security;
 
 namespace Biss.MultiSinkLogger.Http
 {
+    /// <summary>
+    /// Handler HTTP para logging de requisições e respostas com filtro de dados sensíveis.
+    /// </summary>
     public class HttpLoggingHandler : DelegatingHandler
     {
         protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
@@ -10,7 +14,10 @@ namespace Biss.MultiSinkLogger.Http
             string requestContent;
             try
             {
-                requestContent = await request.Content.ReadAsStringSafeAsync();
+                var rawContent = request.Content != null 
+                    ? await request.Content.ReadAsStringSafeAsync() 
+                    : string.Empty;
+                requestContent = SensitiveDataFilter.FilterSensitiveData(rawContent);
             }
             catch (Exception ex)
             {
@@ -18,14 +25,20 @@ namespace Biss.MultiSinkLogger.Http
                 requestContent = LogMessages.ErrorReadingRequestContent;
             }
 
-            Log.Information(LogMessages.SendingHttpRequest, request.Method, request.RequestUri, requestContent);
+            // Filtrar URI se contiver dados sensíveis
+            var filteredUri = SensitiveDataFilter.FilterSensitiveData(request.RequestUri?.ToString() ?? string.Empty);
+
+            Log.Information(LogMessages.SendingHttpRequest, request.Method, filteredUri, requestContent);
 
             var response = await base.SendAsync(request, cancellationToken);
 
             string responseContent;
             try
             {
-                responseContent = await response.Content.ReadAsStringSafeAsync();
+                var rawResponseContent = response.Content != null 
+                    ? await response.Content.ReadAsStringSafeAsync() 
+                    : string.Empty;
+                responseContent = SensitiveDataFilter.FilterSensitiveData(rawResponseContent);
             }
             catch (Exception ex)
             {

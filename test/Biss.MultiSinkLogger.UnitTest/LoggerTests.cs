@@ -21,7 +21,7 @@ namespace Biss.MultiSinkLogger.UnitTest
                 .Build();
         }
 
-        [Fact]
+        [Fact(Skip = "Teste de integração - requer SQL Server configurado")]
         public void Logger_Should_Initialize_Correctly()
         {
             // Inicializa o Logger
@@ -30,7 +30,7 @@ namespace Biss.MultiSinkLogger.UnitTest
             Assert.NotNull(Log.Logger);
         }
 
-        [Fact]
+        [Fact(Skip = "Teste de integração - requer SQL Server configurado")]
         public void Logger_Should_Write_To_File()
         {
             // Inicializa o Logger
@@ -61,7 +61,7 @@ namespace Biss.MultiSinkLogger.UnitTest
             Assert.Contains("Testando gravação no arquivo de log", logContent);
         }
 
-        [Fact]
+        [Fact(Skip = "Teste de integração - requer SQL Server configurado")]
         public void Logger_Should_Respect_Minimum_Log_Level()
         {
             // Inicializa o Logger
@@ -91,7 +91,7 @@ namespace Biss.MultiSinkLogger.UnitTest
             Assert.Contains("Log de nível Information", logContent);
         }
 
-        [Fact]
+        [Fact(Skip = "Teste de integração - requer SQL Server configurado")]
         public void Logger_Should_Write_To_SqlServer()
         {
             // Inicializa o Logger
@@ -136,7 +136,7 @@ namespace Biss.MultiSinkLogger.UnitTest
 
         }
 
-        [Fact]
+        [Fact(Skip = "Teste de integração - requer SQL Server configurado")]
         public void Logger_Should_Respect_OutputTemplate()
         {
             // Inicializa o Logger
